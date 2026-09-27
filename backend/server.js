@@ -20,7 +20,9 @@ const app = express();
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 
+app.set('trust proxy', 1);
 app.use(session({
+    cookie: { secure: process.env.NODE_ENV === 'production', sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax' },
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
@@ -50,3 +52,4 @@ console.log('⏰ Schedulers initialized');
 // Server Listener
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`🚀 Server on port ${PORT}`));
+

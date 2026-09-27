@@ -6,6 +6,7 @@ passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: '/auth/google/callback',
+    proxy: true,
     scope: ['profile', 'email', 'https://www.googleapis.com/auth/calendar.events'],
     accessType: 'offline',
     prompt: 'consent'
@@ -43,3 +44,4 @@ passport.deserializeUser(async (id, done) => {
         done(err, null);
     }
 });
+
